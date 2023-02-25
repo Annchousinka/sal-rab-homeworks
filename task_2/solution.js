@@ -5,13 +5,16 @@ function calcShipping(sum, min, shipping) {
 
     // Задание №2.1. Рассчитать доставку
 
-    let shippingSum;
-    if (productsSum == 0 || productsSum >= freeShippingMinSum) {
-        shippingSum = 0;
-    } else if (productsSum >= freeShippingMinSum){
-        shippingSum = 0;
-    } else if ((productsSum > 0) & (productsSum < freeShippingMinSum)) {
-        shippingSum = shippingPrice;
+    let shippingSum = 0;
+    if(productsSum === 0 && shippingSum === 0){
+        console.log('Доставка бесплатно');
+    
+    }else if(productsSum >= freeShippingMinSum && shippingSum === 0){
+        console.log('Доставка бесплатно');
+
+    }else if(freeShippingMinSum > productsSum > 0){
+            shippingSum = shippingPrice
+        console.log('Платная доставка')
     }
 
     // Конец решения задания №2.1.
@@ -26,12 +29,13 @@ function calcDiscount(sum, min, discount) {
 
     // Задание №2.2. Рассчитать скидку
 
-    let discountSum;
-    if (productsSum >= discountMinSum){
-        discountSum = (discountPart / 100 * productsSum);
-    }
-        else {
-        discountSum = 0;
+    let discountSum = 0;
+    if(productsSum >= discountMinSum){
+        discountSum = (productsSum / 100) * discountPart
+        console.log('Скидка применяется')
+
+    }else{
+        console.log('Скидка отсутсвует')
     }
 
     // Конец решения задания №2.2.
@@ -45,15 +49,13 @@ function calcInvoice({sum, discountMinSum, discountPart, shippingFreeMinSum, shi
 
     // Задача №2.3. Рассчитать скидки и доставку в корзине
 
-    let totalSum;
-    totalSum = productsSum;
-    totalSum = totalSum - discountSum;
-
+    let totalSum = productsSum - discountSum;
     let shippingSum = calcShipping(totalSum, shippingFreeMinSum, shippingPrice); // не изменяйте эту строку!!!
 
-    totalSum = totalSum + shippingSum;
-    let freeShipping;
-    (shippingSum == 0) ? freeShipping = true : freeShipping = false;
+    totalSum = productsSum + shippingSum;
+    totalSum = productsSum - discountSum + shippingSum
+
+    let freeShipping = shippingSum == 0;
 
     // Конец решения задачи №2.3.
 
